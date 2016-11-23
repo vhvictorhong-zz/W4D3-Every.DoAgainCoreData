@@ -12,7 +12,11 @@
 @interface DetailViewController : UIViewController
 
 @property (strong, nonatomic) Todo *detailItem;
-@property (weak, nonatomic) IBOutlet UILabel *detailDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *titleLabel;
+@property (weak, nonatomic) IBOutlet UILabel *todoDescriptionLabel;
+@property (weak, nonatomic) IBOutlet UILabel *deadlineLabel;
+@property (weak, nonatomic) IBOutlet UILabel *priorityLabel;
+
 
 @end
 

@@ -7,6 +7,7 @@
 //
 
 #import "DetailViewController.h"
+#import "NSDate+HelperFunction.h"
 
 @interface DetailViewController ()
 
@@ -17,7 +18,10 @@
 - (void)configureView {
     // Update the user interface for the detail item.
     if (self.detailItem) {
-        self.detailDescriptionLabel.text = self.detailItem.title;
+        self.titleLabel.text = self.detailItem.title;
+        self.todoDescriptionLabel.text = self.detailItem.todoDescription;
+        self.deadlineLabel.text = [NSString stringWithFormat:@"Deadline : %@", [NSDate stringFromDate:self.detailItem.deadlineDate]];
+        self.priorityLabel.text = [NSString stringWithFormat:@"Priority : %ld", (long)self.detailItem.priorityNumber];
     }
 }
 
