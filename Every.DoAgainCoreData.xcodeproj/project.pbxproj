@@ -17,6 +17,10 @@
 		2B1089291DE6119800652D19 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B1089271DE6119800652D19 /* LaunchScreen.storyboard */; };
 		2B1089341DE6119800652D19 /* Every_DoAgainCoreDataTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1089331DE6119800652D19 /* Every_DoAgainCoreDataTests.m */; };
 		2B10893F1DE6119800652D19 /* Every_DoAgainCoreDataUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B10893E1DE6119800652D19 /* Every_DoAgainCoreDataUITests.m */; };
+		2B1089511DE6124100652D19 /* Todo+CoreDataProperties.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B10894F1DE6124100652D19 /* Todo+CoreDataProperties.m */; };
+		2B1089541DE6159400652D19 /* NSDate+HelperFunction.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1089531DE6159400652D19 /* NSDate+HelperFunction.m */; };
+		2B1089571DE615C700652D19 /* AddItemViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1089561DE615C700652D19 /* AddItemViewController.m */; };
+		2B10895A1DE6160000652D19 /* CustomTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2B1089591DE6160000652D19 /* CustomTableViewCell.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +60,14 @@
 		2B10893A1DE6119800652D19 /* Every.DoAgainCoreDataUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Every.DoAgainCoreDataUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B10893E1DE6119800652D19 /* Every_DoAgainCoreDataUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Every_DoAgainCoreDataUITests.m; sourceTree = "<group>"; };
 		2B1089401DE6119800652D19 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		2B10894C1DE6124100652D19 /* Todo+CoreDataClass.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "Todo+CoreDataClass.h"; path = "../Todo+CoreDataClass.h"; sourceTree = "<group>"; };
+		2B10894F1DE6124100652D19 /* Todo+CoreDataProperties.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "Todo+CoreDataProperties.m"; path = "../Todo+CoreDataProperties.m"; sourceTree = "<group>"; };
+		2B1089521DE6159400652D19 /* NSDate+HelperFunction.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+HelperFunction.h"; sourceTree = "<group>"; };
+		2B1089531DE6159400652D19 /* NSDate+HelperFunction.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+HelperFunction.m"; sourceTree = "<group>"; };
+		2B1089551DE615C700652D19 /* AddItemViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddItemViewController.h; sourceTree = "<group>"; };
+		2B1089561DE615C700652D19 /* AddItemViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddItemViewController.m; sourceTree = "<group>"; };
+		2B1089581DE6160000652D19 /* CustomTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomTableViewCell.h; sourceTree = "<group>"; };
+		2B1089591DE6160000652D19 /* CustomTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomTableViewCell.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -112,6 +124,14 @@
 				2B10891D1DE6119800652D19 /* MasterViewController.m */,
 				2B10891F1DE6119800652D19 /* DetailViewController.h */,
 				2B1089201DE6119800652D19 /* DetailViewController.m */,
+				2B1089551DE615C700652D19 /* AddItemViewController.h */,
+				2B1089561DE615C700652D19 /* AddItemViewController.m */,
+				2B1089581DE6160000652D19 /* CustomTableViewCell.h */,
+				2B1089591DE6160000652D19 /* CustomTableViewCell.m */,
+				2B10894C1DE6124100652D19 /* Todo+CoreDataClass.h */,
+				2B10894F1DE6124100652D19 /* Todo+CoreDataProperties.m */,
+				2B1089521DE6159400652D19 /* NSDate+HelperFunction.h */,
+				2B1089531DE6159400652D19 /* NSDate+HelperFunction.m */,
 				2B1089221DE6119800652D19 /* Main.storyboard */,
 				2B1089251DE6119800652D19 /* Assets.xcassets */,
 				2B1089271DE6119800652D19 /* LaunchScreen.storyboard */,
@@ -282,8 +302,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B1089211DE6119800652D19 /* DetailViewController.m in Sources */,
+				2B1089571DE615C700652D19 /* AddItemViewController.m in Sources */,
+				2B1089511DE6124100652D19 /* Todo+CoreDataProperties.m in Sources */,
 				2B10891E1DE6119800652D19 /* MasterViewController.m in Sources */,
 				2B1089181DE6119800652D19 /* AppDelegate.m in Sources */,
+				2B10895A1DE6160000652D19 /* CustomTableViewCell.m in Sources */,
+				2B1089541DE6159400652D19 /* NSDate+HelperFunction.m in Sources */,
 				2B1089151DE6119800652D19 /* main.m in Sources */,
 				2B10891B1DE6119800652D19 /* Every_DoAgainCoreData.xcdatamodeld in Sources */,
 			);

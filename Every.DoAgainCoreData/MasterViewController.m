@@ -8,8 +8,16 @@
 
 #import "MasterViewController.h"
 #import "DetailViewController.h"
+#import "AppDelegate.h"
+#import "Todo+CoreDataClass.h"
+#import "CustomTableViewCell.h"
+#import "NSDate+HelperFunction.h"
+@import CoreData;
 
 @interface MasterViewController ()
+
+@property (nonatomic, weak) AppDelegate *appDelegate;
+@property (nonatomic) NSManagedObjectContext *context;
 
 @end
 
@@ -18,41 +26,54 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view, typically from a nib.
+    self.appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
+    self.context = self.appDelegate.persistentContainer.viewContext;
+    
     self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(insertNewObject:)];
     self.navigationItem.rightBarButtonItem = addButton;
     self.detailViewController = (DetailViewController *)[[self.splitViewController.viewControllers lastObject] topViewController];
+    
+    //[self createPerson];
+    
 }
 
+-(void)createPerson {
+    
+    Todo *newObject = [NSEntityDescription
+                         insertNewObjectForEntityForName:@"Todo"
+                         inManagedObjectContext:self.context];
+    newObject.title = @"Clean";
+    newObject.todoDescription = @"Clean up the bedroom";
+    newObject.priorityNumber = 2;
+    newObject.isCompleted = NO;
+    newObject.deadlineDate = [NSDate date];
+    
+    [self.appDelegate saveContext];
+    
+}
 
 - (void)viewWillAppear:(BOOL)animated {
     self.clearsSelectionOnViewWillAppear = self.splitViewController.isCollapsed;
     [super viewWillAppear:animated];
 }
 
-
-- (void)didReceiveMemoryWarning {
-    [super didReceiveMemoryWarning];
-    // Dispose of any resources that can be recreated.
-}
-
-
 - (void)insertNewObject:(id)sender {
-    NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
-    Event *newEvent = [[Event alloc] initWithContext:context];
+    //NSManagedObjectContext *context = [self.fetchedResultsController managedObjectContext];
+    //Todo *newTo = [[Todo alloc] initWithContext:context];
         
     // If appropriate, configure the new managed object.
-    newEvent.timestamp = [NSDate date];
+    //newEvent.timestamp = [NSDate date];
         
     // Save the context.
-    NSError *error = nil;
-    if (![context save:&error]) {
-        // Replace this implementation with code to handle the error appropriately.
-        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
-        abort();
-    }
+//    NSError *error = nil;
+//    if (![context save:&error]) {
+//        // Replace this implementation with code to handle the error appropriately.
+//        // abort() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//        NSLog(@"Unresolved error %@, %@", error, error.userInfo);
+//        abort();
+//    }
 }
 
 
@@ -61,7 +82,7 @@
 - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
     if ([[segue identifier] isEqualToString:@"showDetail"]) {
         NSIndexPath *indexPath = [self.tableView indexPathForSelectedRow];
-        Event *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
+        Todo *object = [self.fetchedResultsController objectAtIndexPath:indexPath];
         DetailViewController *controller = (DetailViewController *)[[segue destinationViewController] topViewController];
         [controller setDetailItem:object];
         controller.navigationItem.leftBarButtonItem = self.splitViewController.displayModeButtonItem;
@@ -84,9 +105,14 @@
 
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
-    Event *event = [self.fetchedResultsController objectAtIndexPath:indexPath];
-    [self configureCell:cell withEvent:event];
+    CustomTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"Cell" forIndexPath:indexPath];
+    Todo *todo = [self.fetchedResultsController objectAtIndexPath:indexPath];
+    //[self configureCell:cell withEvent:event];
+    cell.titleLabel.text = todo.title;
+    cell.todoDescriptionLabel.text = todo.todoDescription;
+    cell.priorityLabel.text = [NSString stringWithFormat:@"Priority : %ld", (long)todo.priorityNumber];
+    cell.deadlineLabel.text = [NSString stringWithFormat:@"Deadline : %@", [NSDate stringFromDate:todo.deadlineDate]];
+    
     return cell;
 }
 
@@ -113,32 +139,32 @@
 }
 
 
-- (void)configureCell:(UITableViewCell *)cell withEvent:(Event *)event {
-    cell.textLabel.text = event.timestamp.description;
-}
+//- (void)configureCell:(UITableViewCell *)cell withEvent:(Event *)event {
+//    cell.textLabel.text = event.timestamp.description;
+//}
 
 
 #pragma mark - Fetched results controller
 
-- (NSFetchedResultsController<Event *> *)fetchedResultsController
+- (NSFetchedResultsController<Todo *> *)fetchedResultsController
 {
     if (_fetchedResultsController != nil) {
         return _fetchedResultsController;
     }
     
-    NSFetchRequest<Event *> *fetchRequest = Event.fetchRequest;
+    NSFetchRequest<Todo *> *fetchRequest = Todo.fetchRequest;
     
     // Set the batch size to a suitable number.
     [fetchRequest setFetchBatchSize:20];
     
     // Edit the sort key as appropriate.
-    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"timestamp" ascending:NO];
+    NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"title" ascending:NO];
 
     [fetchRequest setSortDescriptors:@[sortDescriptor]];
     
     // Edit the section name key path and cache name if appropriate.
     // nil for section name key path means "no sections".
-    NSFetchedResultsController<Event *> *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
+    NSFetchedResultsController<Todo *> *aFetchedResultsController = [[NSFetchedResultsController alloc] initWithFetchRequest:fetchRequest managedObjectContext:self.managedObjectContext sectionNameKeyPath:nil cacheName:@"Master"];
     aFetchedResultsController.delegate = self;
     
     NSError *error = nil;
@@ -191,7 +217,8 @@
             break;
             
         case NSFetchedResultsChangeUpdate:
-            [self configureCell:[tableView cellForRowAtIndexPath:indexPath] withEvent:anObject];
+            //Do something!!!
+            //[self configureCell:[tableView cellForRowAtIndexPath:indexPath] withEvent:anObject];
             break;
             
         case NSFetchedResultsChangeMove:
